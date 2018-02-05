@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option go_package = "protobuf";
+package pilot;
+
+service Pilot {
+  rpc Flight (stream Request) returns (stream Response) {}
+}
+
+message Request {
+  RegisterProxy register = 1;
+  ReportCmdStatus report = 2;
+}
+
+message Response {
+  RegisterMetadata register = 1;
+  StartConfd start = 2;
+  RegisterCmd cmd = 3;
+}
+
+message RegisterProxy {
+  string instance_id = 1;
+}
+
+message ReportCmdStatus {
+  string task_id = 1;
+  string status = 2;
+}
+
+message RegisterMetadata {
+  string metadata = 1;
+}
+
+message StartConfd {
+  string ip = 1;
+}
+
+message RegisterCmd {
+  string ip = 1;
+  string cmd = 2;
+}
